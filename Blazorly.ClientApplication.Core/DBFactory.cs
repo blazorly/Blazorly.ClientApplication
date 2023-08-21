@@ -63,7 +63,7 @@ namespace Blazorly.ClientApplication.Core
         public async Task Insert(string collection, ExpandoObject data)
         {
             CheckAccess(collection, "I");
-
+            
             await factory.Query(collection).InsertAsync(data);
         }
 

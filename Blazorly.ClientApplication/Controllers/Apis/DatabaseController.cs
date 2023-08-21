@@ -50,5 +50,12 @@ namespace Blazorly.ClientApplication.Controllers.Apis
 
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("install")]
+        public async Task<ActionResult> Install(bool refresh = false)
+        {
+            
+        }
     }
 }
