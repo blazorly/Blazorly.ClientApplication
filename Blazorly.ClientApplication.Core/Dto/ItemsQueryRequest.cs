@@ -10,11 +10,14 @@ namespace Blazorly.ClientApplication.Core.Dto
 {
     public class ItemsQueryRequest
     {
+        [JsonPropertyName("entity")]
+        public string? Entity { get; set; }
+
         [JsonPropertyName("fields")]
         public JsonDocument? Fields { get; set; }
 
         [JsonPropertyName("query")]
-        public JsonDocument? Query { get; set; }
+        public JsonDocument? Filter { get; set; }
 
         [JsonPropertyName("sort")]
         public JsonDocument? Sort { get; set; }

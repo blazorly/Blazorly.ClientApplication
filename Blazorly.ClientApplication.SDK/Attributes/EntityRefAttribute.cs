@@ -11,6 +11,8 @@ namespace Blazorly.ClientApplication.SDK.Attributes
     {
         public string RefEntity { get; set; }
 
+        public bool Required { get; set; }
+
         public EntityRefAttribute(string refEntity)
         {
             RefEntity = refEntity;

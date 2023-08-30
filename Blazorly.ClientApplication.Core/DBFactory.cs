@@ -62,23 +62,18 @@ namespace Blazorly.ClientApplication.Core
 
         public async Task Insert(string collection, ExpandoObject data)
         {
-            CheckAccess(collection, "I");
-            
             await factory.Query(collection).InsertAsync(data);
         }
 
-        public async Task Update(string collection, string key, string value, ExpandoObject data)
+        public async Task Update(string collection, string key, object value, ExpandoObject data)
         {
-            CheckAccess(collection, "U");
-            await CheckRecordAccess(collection, key, value);
             var count = await factory.Query(collection).Where(key, value).UpdateAsync(data);
             if (count == 0)
                 throw new Exception("Update failed");
         }
 
-        public async Task<dynamic> Read(string collection, string key, string value)
+        public async Task<dynamic> Read(string collection, string key, object value)
         {
-            CheckAccess(collection, "R");
             var query = factory.Query(collection).Where(key, value);
             
             return await query.FirstOrDefaultAsync();
@@ -91,33 +86,21 @@ namespace Blazorly.ClientApplication.Core
             if (count == null)
                 count = 100;
 
-            CheckAccess(collection, "R");
-
             var query = factory.Query();
             DBUtils.ParseSelectFields(schema, collection, queryRequest, query);
-            if(queryRequest.Query != null)
-                DBUtils.ParseQuery("t0", queryRequest.Query.RootElement, query);
+            if(queryRequest.Filter != null)
+                DBUtils.ParseQuery("t0", queryRequest.Filter.RootElement, query);
             DBUtils.ParseSort(queryRequest.Sort, query);
 
             return await query.PaginateAsync(page.Value, count.Value);
         }
 
-        private async Task CheckRecordAccess(string collection, string key, string value)
+        public async Task CheckRecordAccess(string collection, string key, object value)
         {
             var count = await factory.Query(collection).Where(key, value).CountAsync<int>(new string[] { "*" });
 
             if (count == 0)
                 throw new RecordNotFoundException(collection);
-        }
-
-        private void CheckAccess(string collection, string action)
-        {
-            var result = true;
-
-            if(!result)
-            {
-                throw new AccessDeniedException(collection);
-            }
         }
 
         public Schema GetSchema()

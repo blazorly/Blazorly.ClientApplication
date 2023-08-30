@@ -11,9 +11,8 @@ namespace Blazorly.ClientApplication.SDK.Attributes
     {
         public int Length { get; set; }
 
-        public decimal MinVal { get; set; }
+        public bool Required { get; set; }
 
-        public decimal MaxVal { get; set; }
-
+        public double MinValue { get; set; }
     }
 }
