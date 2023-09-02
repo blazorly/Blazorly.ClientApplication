@@ -22,9 +22,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-
+app.UseAuthorization();
 app.MapControllerRoute(
-    name: "default",
+    name: "api",
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
