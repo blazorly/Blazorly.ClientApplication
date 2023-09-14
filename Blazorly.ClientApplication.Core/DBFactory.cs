@@ -25,7 +25,7 @@ namespace Blazorly.ClientApplication.Core
 {
     public class DBFactory
     {
-        private QueryFactory factory = null;
+        public QueryFactory factory = null;
 
         private Schema schema = null;
 
@@ -62,7 +62,7 @@ namespace Blazorly.ClientApplication.Core
 
         public async Task Insert(string collection, ExpandoObject data)
         {
-            await factory.Query(collection).InsertAsync(data);
+			await factory.Query(collection).InsertAsync(data);
         }
 
         public async Task Update(string collection, string key, object value, ExpandoObject data)

@@ -2,9 +2,11 @@
 
 using Blazorly.ClientApplication.Core;
 
-string connString = "Server=.;Database=DemoApp01;Trusted_Connection=True;";
+string connString = "Server=.;Database=DemoApp02;Trusted_Connection=True;";
 
 DBFactory compiler = new DBFactory("MSSQL", connString);
+DBDeployer deployer = new DBDeployer(compiler);
+deployer.Deploy();
 
 Console.WriteLine("Hello, World!");
 

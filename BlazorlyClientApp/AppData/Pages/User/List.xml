@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PageModel path="/user/list" Title="Users List" Breadcrumb="User Management->Users">
+	<Toolbar>
+		<Action class="primary" type="modal" label="Add User" target="modal_add_user" id="btn_add_user"></Action>
+	</Toolbar>
+	<Content>
+		
+	</Content>
+</PageModel>

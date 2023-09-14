@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Blazorly.ClientApplication.SDK.Attributes;
+using Blazorly.ClientApplication.SDK.System;
+using NanoidDotNet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -9,38 +13,18 @@ namespace Blazorly.ClientApplication.SDK
 {
     public class BaseEntity
     {
-        public string EntityId { get; set; }
+		public string Id { get; set; } = Nanoid.Generate();
 
-        public BaseEntity(string id)
-        {
-            this.EntityId = id;
-        }
+		[FieldDef]
+		public SystemUser CreatedBy { get; set; }
 
-        private Dictionary<string, object> data = new Dictionary<string, object>();
+		[FieldDef]
+		public DateTime CreatedDate { get; set; }
 
-        public string Id => (string)this["Id"];
+		[FieldDef]
+		public SystemUser UpdatedBy { get; set; }
 
-        public string CreatedBy => (string)this["CreatedBy"];
-
-        public DateTime CreatedDate => (DateTime)this["CreatedDate"];
-
-        public string UpdatedBy => (string)this["UpdatedBy"];
-
-        public DateTime UpdatedDate => (DateTime)this["UpdatedDate"];
-
-        public object this[string key]
-        {
-            get
-            {
-                return data[key.ToLower()];
-            }
-            set
-            {
-                if (data.ContainsKey(key.ToLower()))
-                    data.Add(key.ToLower(), value);
-                else
-                    data[key.ToLower()] = value;
-            }
-        }
+		[FieldDef]
+		public DateTime UpdatedDate { get; set; }
     }
 }

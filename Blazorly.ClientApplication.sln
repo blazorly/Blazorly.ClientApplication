@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScratchPad", "ScratchPad\Sc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorly.ClientApplication.SDK", "Blazorly.ClientApplication.SDK\Blazorly.ClientApplication.SDK.csproj", "{6EB0638B-9902-456C-9298-5301411A2148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorlyClientApp", "BlazorlyClientApp\BlazorlyClientApp.csproj", "{23C31C2F-DF99-45AE-878E-149FB1E1621D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{6EB0638B-9902-456C-9298-5301411A2148}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EB0638B-9902-456C-9298-5301411A2148}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EB0638B-9902-456C-9298-5301411A2148}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23C31C2F-DF99-45AE-878E-149FB1E1621D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23C31C2F-DF99-45AE-878E-149FB1E1621D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23C31C2F-DF99-45AE-878E-149FB1E1621D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23C31C2F-DF99-45AE-878E-149FB1E1621D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
