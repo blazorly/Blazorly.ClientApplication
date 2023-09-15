@@ -22,4 +22,41 @@ namespace Blazorly.ClientApplication.SDK
 		[OptionDisplay("Github")]
 		Github
 	}
+
+	public enum PermissionLevel
+	{
+		None,
+		All,
+		Restricted
+	}
+
+	public enum FormControlType
+	{
+		AutoComplete,
+		Button,
+		CheckBox,
+		CheckBoxList,
+		ColorPicker,
+		DatePicker,
+		DropDown,
+		DropDownDataGrid,
+		Fieldset,
+		FileInput,
+		FormField,
+		HTMLEditor,
+		ListBox,
+		Mask,
+		Numeric,
+		Password,
+		RadioButtonList,
+		Rating,
+		SelectBar,
+		Slider,
+		SpeechToTextButton,
+		SplitButton,
+		Switch,
+		TextArea,
+		TextBox,
+		Upload,
+	}
 }

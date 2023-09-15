@@ -15,11 +15,7 @@ namespace Blazorly.ClientApplication.SDK.Attributes
 
 		public int Decimals { get; set; } = 2;
 
-        public bool Required { get; set; } = false;
-
-        public double MinValue { get; set; }
-
-		public double MaxValue { get; set; }
+        public bool Required { get; set; }
 
 		public FieldDefAttribute()
         {

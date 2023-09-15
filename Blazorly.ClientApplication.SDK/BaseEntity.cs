@@ -1,5 +1,4 @@
 ﻿using Blazorly.ClientApplication.SDK.Attributes;
-using Blazorly.ClientApplication.SDK.System;
 using NanoidDotNet;
 using System;
 using System.Collections.Generic;
@@ -15,16 +14,16 @@ namespace Blazorly.ClientApplication.SDK
     {
 		public string Id { get; set; } = Nanoid.Generate();
 
-		[FieldDef]
-		public SystemUser CreatedBy { get; set; }
+		public string CreatedBy { get; set; }
 
-		[FieldDef]
+		public string CreatedByName { get; set; }
+
 		public DateTime CreatedDate { get; set; }
 
-		[FieldDef]
-		public SystemUser UpdatedBy { get; set; }
+		public string UpdatedBy { get; set; }
 
-		[FieldDef]
+		public string UpdatedByName { get; set; }
+
 		public DateTime UpdatedDate { get; set; }
     }
 }

@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Radzen.Blazor" Version="4.15.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blazorly.ClientApplication.CoreModules\Blazorly.ClientApplication.CoreModules.csproj" />
     <ProjectReference Include="..\Blazorly.ClientApplication.Core\Blazorly.ClientApplication.Core.csproj" />
   </ItemGroup>
 
