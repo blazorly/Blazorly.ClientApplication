@@ -1,3 +1,5 @@
+using Blazorly.ClientApplication.Core;
+using BlazorlyClientApp;
 using BlazorlyClientApp.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -8,6 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+AppConfig.DBConnectionString =  builder.Configuration.GetValue<string>("DBConnectionString");
+AppConfig.DBType = builder.Configuration.GetValue<string>("DBType");
+AppConfig.DBTimeout = builder.Configuration.GetValue<int>("DBTimeout");
+AppConfig.Modules = builder.Configuration.GetSection("Modules").Get<List<string>>();
+AppConfig.Schema = AppConfig.Factory.GetSchema();
 
 var app = builder.Build();
 
@@ -27,5 +35,5 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-
+AppConfig.LoadModules();
 app.Run();

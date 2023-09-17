@@ -1,25 +1,15 @@
 ﻿using Blazorly.ClientApplication.Core.DB;
-using Blazorly.ClientApplication.Core.Dto;
 using Blazorly.ClientApplication.Core.Exceptions;
 using Blazorly.ClientApplication.Core.Properties;
+using Blazorly.ClientApplication.SDK.Dto;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using MySql.Data.MySqlClient;
 using Npgsql;
-using SqlKata;
 using SqlKata.Compilers;
 using SqlKata.Execution;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data.SQLite;
 using System.Dynamic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Blazorly.ClientApplication.Core
 {
@@ -68,6 +58,13 @@ namespace Blazorly.ClientApplication.Core
         public async Task Update(string collection, string key, object value, ExpandoObject data)
         {
             var count = await factory.Query(collection).Where(key, value).UpdateAsync(data);
+            if (count == 0)
+                throw new Exception("Update failed");
+        }
+
+        public async Task Delete(string collection, string key, object value)
+        {
+            var count = await factory.Query(collection).Where(key, value).DeleteAsync();
             if (count == 0)
                 throw new Exception("Update failed");
         }

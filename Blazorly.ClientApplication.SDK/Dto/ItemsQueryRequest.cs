@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Blazorly.ClientApplication.Core.Dto
+namespace Blazorly.ClientApplication.SDK.Dto
 {
     public class ItemsQueryRequest
     {

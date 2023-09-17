@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Blazorly.ClientApplication.Core.Dto
+namespace Blazorly.ClientApplication.SDK.Dto
 {
     public class ItemsResponse
     {
@@ -45,7 +45,7 @@ namespace Blazorly.ClientApplication.Core.Dto
 
         [JsonPropertyName("data")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public dynamic Data { get; set; }
+        public List<dynamic> Data { get; set; }
 
         
     }

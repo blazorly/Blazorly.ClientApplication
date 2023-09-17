@@ -1,0 +1,64 @@
+﻿<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" class="col-12">
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Gap="10px" Wrap="FlexWrap.Wrap" class="col-6 col-md-12">
+        @foreach (var b in Model.Actions)
+        {
+            if (b.Alignment == PageActionAlignment.Left)
+            {
+                <RadzenButton Click=@b.OnClick Text="@b.Label" Icon="@b.Icon" Variant=((Variant)b.Variant) ButtonStyle="@((ButtonStyle)b.Style)" />
+            }
+        }
+    </RadzenStack>
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Reverse="true" Gap="10px" Wrap="FlexWrap.Wrap" class="col-6 col-md-12">
+        @foreach (var b in Model.Actions)
+        {
+            if (b.Alignment == PageActionAlignment.Right)
+            {
+                <RadzenButton Click=@b.OnClick Text="@b.Label" Icon="@b.Icon" Variant=((Variant)b.Variant) ButtonStyle="@((ButtonStyle)b.Style)" />
+            }
+        }
+    </RadzenStack>
+</RadzenStack>
+
+<RadzenRow JustifyContent="JustifyContent.Normal" AlignItems="AlignItems.Normal" Gap="1rem" class="rz-mt-4">
+    @foreach (var b in Model.Blocks)
+    {
+        var type = InferType(b.Resource.ToString());
+        if (type == null)
+            continue;
+
+        <DynamicComponent Type="@type" Parameters="@GetDynamicParams(b)"></DynamicComponent>
+    }
+</RadzenRow>
+
+@code {
+    [Parameter]
+    public PageResource Model { get; set; }
+
+    private bool loaded = false;
+
+    protected override void OnInitialized()
+    {
+        loaded = true;
+    }
+
+    private Type InferType(string name)
+    {
+        return Type.GetType("BlazorlyClientApp.Components." + name);
+    }
+
+    private Dictionary<string, object> GetDynamicParams(PageBlock pb)
+    {
+        if (pb.Resource.ToString() == "BlzFormComponent")
+        {
+            return new Dictionary<string, object>()
+            {
+                { "Model", pb.Resource }
+            };
+        }
+
+        return new Dictionary<string, object>()
+        {
+            { "Model", pb.Resource }
+        };
+    }
+}

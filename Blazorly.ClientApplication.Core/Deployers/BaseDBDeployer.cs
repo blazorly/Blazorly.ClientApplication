@@ -25,10 +25,11 @@ namespace Blazorly.ClientApplication.Core.Deployers
             factory = db.factory;
         }
 
-        public void Deploy()
+        public void Deploy(string modulePath)
         {
             schema = db.GetSchema();
-            var entities = Assembly.GetAssembly(typeof(BaseEntity)).GetTypes().Where(x => x.BaseType.Name == "BaseEntity").ToList();
+            var assembly = Assembly.LoadFrom(modulePath + ".dll");
+            var entities = assembly.GetTypes().Where(x => x.BaseType.Name == "BaseEntity").ToList();
             foreach (var entity in entities)
             {
                 var entityDef = entity.GetCustomAttribute<EntityDefAttribute>();

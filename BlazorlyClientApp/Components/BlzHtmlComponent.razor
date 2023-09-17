@@ -1,0 +1,7 @@
+﻿<div class="col-@Model.Span">
+    @(new MarkupString(Model.Value?.ToString()))
+</div>
+@code {
+    [Parameter]
+    public HtmlComponent Model { get; set; }
+}

@@ -1,5 +1,5 @@
 ﻿using Blazorly.ClientApplication.Core.DB;
-using Blazorly.ClientApplication.Core.Dto;
+using Blazorly.ClientApplication.SDK.Dto;
 using SqlKata;
 using System;
 using System.Collections.Generic;

@@ -8,20 +8,25 @@ namespace Blazorly.ClientApplication.SDK.BuiltIn
 {
 	public class BaseBuiltInComponent : BaseResource
 	{
-		public FormControlType ControlType { get; set; }
+		public BaseBuiltInComponent(string blzControl) 
+		{
+			this.BlzControl = blzControl;
+		}
 
 		public string Prop { get; set; }
 
 		public string? Label { get; set; }
 
-		public object? DefaultValue { get; set; } = null;
+		public object? Value { get; set; } = null;
 
 		public bool Required { get; set; }
 
 		public int Span { get; set; } = 12;
 
+		public bool Visible { get; set; }
+
 		public override void Build()
 		{
 		}
-	}
+    }
 }

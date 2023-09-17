@@ -26,7 +26,7 @@ namespace Blazorly.ClientApplication.CoreModules.Entities
 		[FieldDef(Length = 50)]
 		public string? JobTitle { get; set; }
 
-		[EntityRef("SystemRole")]
+		[FieldDef()]
 		public SystemRole? Role { get; set; }
 
 		[FieldDef(Required = true)]

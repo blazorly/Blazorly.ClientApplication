@@ -69,6 +69,8 @@ namespace Blazorly.ClientApplication.Core.Deployers
             foreach (var col in tableSchema.Fields)
             {
                 var prop = properties.Where(x => x.Name.ToUpper() == col.Name.ToUpper()).FirstOrDefault();
+                if (ignoreFields.Contains(prop.Name))
+                    continue;
                 if (prop != null)
                 {
                     var fieldRef = prop.GetCustomAttribute<FieldDefAttribute>();
@@ -82,6 +84,8 @@ namespace Blazorly.ClientApplication.Core.Deployers
 
             foreach (var prop in properties)
             {
+                if (ignoreFields.Contains(prop.Name))
+                    continue;
                 var col = tableSchema.Fields.Where(x => x.Name.ToUpper() == prop.Name.ToUpper()).FirstOrDefault();
                 if (col == null)
                 {
@@ -154,6 +158,8 @@ namespace Blazorly.ClientApplication.Core.Deployers
             var properties = entity.GetProperties();
             foreach (var prop in properties)
             {
+                if (ignoreFields.Contains(prop.Name))
+                    continue;
                 var fieldRef = prop.GetCustomAttribute<FieldDefAttribute>();
 
                 if (fieldRef == null)
@@ -161,6 +167,7 @@ namespace Blazorly.ClientApplication.Core.Deployers
 
                 if (prop.PropertyType.BaseType.Name == "BaseEntity")
                 {
+
                     string fnName = $"FK_{entityDef.Name}_{prop.Name}";
                     var entityRefDef = prop.PropertyType.GetCustomAttribute<EntityDefAttribute>();
                     var columnConstraint = GetExistingConstraint(entityDef.Name, prop.Name);

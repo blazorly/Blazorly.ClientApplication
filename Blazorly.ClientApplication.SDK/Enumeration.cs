@@ -59,4 +59,31 @@ namespace Blazorly.ClientApplication.SDK
 		TextBox,
 		Upload,
 	}
+
+	public enum PageActionAlignment
+	{
+		Left,
+		Right,
+		Center
+	}
+
+	public enum PageActionStyle
+	{
+		Primary,
+		Secondary,
+		Light,
+		Dark,
+		Success,
+		Danger,
+		Warning,
+		Info
+	}
+
+	public enum PageActionVariant
+	{
+		Filled,
+		Flat,
+		Text,
+		Outlined
+	}
 }

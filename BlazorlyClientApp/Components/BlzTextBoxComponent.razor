@@ -1,0 +1,21 @@
+﻿<RadzenColumn Size="@Model.Span">
+    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">@Model.Label</RadzenText>
+    <RadzenTextBox @bind-Value=@Value class="w-100" />
+</RadzenColumn>
+
+@code {
+    [Parameter]
+    public TextBoxComponent Model { get; set; }
+
+    private string Value
+    {
+        get
+        {
+            return Model.Value?.ToString();
+        }
+        set
+        {
+            Model.Value = value;
+        }
+    }
+}

@@ -11,9 +11,13 @@ namespace Blazorly.ClientApplication.SDK.Attributes
 	{
 		public string Path { get; set; }
 
-		public PageDefAttribute(string path)
+		public bool OverrideExisting { get; set; }
+
+		public PageDefAttribute(string path, bool overrideExisting = false)
 		{
 			Path = path;
-		}
+            OverrideExisting = overrideExisting;
+
+        }
 	}
 }

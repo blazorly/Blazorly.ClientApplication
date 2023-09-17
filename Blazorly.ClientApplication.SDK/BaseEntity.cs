@@ -12,18 +12,23 @@ namespace Blazorly.ClientApplication.SDK
 {
     public class BaseEntity
     {
-		public string Id { get; set; } = Nanoid.Generate();
+		[FieldDef]
+		public string Id { get; set; }
 
-		public string CreatedBy { get; set; }
+        [FieldDef]
+        public string CreatedBy { get; set; }
 
-		public string CreatedByName { get; set; }
+		public string? CreatedByName { get; set; }
 
-		public DateTime CreatedDate { get; set; }
+        [FieldDef]
+        public DateTime CreatedDate { get; set; }
 
-		public string UpdatedBy { get; set; }
+        [FieldDef]
+        public string UpdatedBy { get; set; }
 
-		public string UpdatedByName { get; set; }
+		public string? UpdatedByName { get; set; }
 
-		public DateTime UpdatedDate { get; set; }
+        [FieldDef]
+        public DateTime UpdatedDate { get; set; }
     }
 }

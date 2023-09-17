@@ -11,7 +11,9 @@ namespace Blazorly.ClientApplication.SDK
 	{
 		public string Id { get; set; }
 
-		public Dictionary<string, string> Props { get; set; } = new Dictionary<string, string>();
+        public string BlzControl { get; set; }
+
+        public Dictionary<string, string> Props { get; set; } = new Dictionary<string, string>();
 
 		public BaseResource(string id = null)
 		{
@@ -19,8 +21,14 @@ namespace Blazorly.ClientApplication.SDK
 				id = Nanoid.Generate();
 
 			Id = id;
+			this.Build();
 		}
 
 		public abstract void Build();
-	}
+
+        public override string ToString()
+        {
+			return this.BlzControl;
+        }
+    }
 }

@@ -1,9 +1,27 @@
-﻿@page "/"
+﻿@page "/{*pageRoute}"
 
-<PageTitle>Index</PageTitle>
+@if (pageModel != null)
+{
+    <PageBuilder Model="@pageModel"></PageBuilder>
+}
 
-<h1>Hello, world!</h1>
+@code{
+    [Parameter]
+    public string PageRoute { get; set; }
 
-Welcome to your new app.
+    private bool loaded = false;
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    private PageResource pageModel;
+
+    protected override void OnParametersSet()
+    {
+        pageModel = null;
+        if (PageRoute != null)
+        {
+            pageModel = AppConfig.PageBuilder.GetPage(PageRoute);
+            if (pageModel != null)
+                pageModel.EntityContext = AppConfig.GetEntityContext("testuser");
+            loaded = true;
+        }
+    }
+}

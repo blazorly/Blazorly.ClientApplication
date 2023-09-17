@@ -1,0 +1,28 @@
+﻿@foreach (var f in Model.Controls)
+{
+    var type = InferType(f.ToString());
+    if (type == null)
+        continue;
+
+    <DynamicComponent Type="@type" Parameters="@GetDynamicParams(f)"></DynamicComponent>
+}
+
+@code {
+    [Parameter]
+    public FormComponent Model { get; set; }
+
+    private Dictionary<string, object> DynamicParameters = new Dictionary<string, object>();
+
+    private Type InferType(string name)
+    {
+        return Type.GetType("BlazorlyClientApp.Components." + name);
+    }
+
+    private Dictionary<string, object> GetDynamicParams(object f)
+    {
+        return new Dictionary<string, object>()
+        {
+            { "Model", f }
+        };
+    }
+}

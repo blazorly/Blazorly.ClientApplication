@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 
 namespace Blazorly.ClientApplication.CoreModules.Components.Forms
 {
-	public class UserForm : FormComponent<SystemUser>
+	public class UserForm : FormComponent
 	{
-		public override void Build()
+        public UserForm() : base(typeof(SystemUser))
+        {
+        }
+
+        public override void Build()
 		{
-			this.Controls.Add(new TextBoxComponent("FirstName", "First Name", true, 6));
-			this.Controls.Add(new TextBoxComponent("LastName", "Last Name", true, 6));
-			this.Controls.Add(new TextBoxComponent("Email", "Email", true, 6));
+            this.Controls.Add(new TextBoxComponent("FirstName", "First Name", true, 6));
+            this.Controls.Add(new TextBoxComponent("LastName", "Last Name", true, 6));
+            this.Controls.Add(new TextBoxComponent("Email", "Email", true, 6));
 			this.Controls.Add(new TextBoxComponent("JobTitle", "Job Title", false, 6));
 		}
 	}
