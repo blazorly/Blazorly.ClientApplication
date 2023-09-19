@@ -11,10 +11,6 @@ namespace Blazorly.ClientApplication.CoreModules.Components.Forms
 {
 	public class UserForm : FormComponent
 	{
-        public UserForm() : base(typeof(SystemUser))
-        {
-        }
-
         public override void Build()
 		{
             this.Controls.Add(new TextBoxComponent("FirstName", "First Name", true, 6));

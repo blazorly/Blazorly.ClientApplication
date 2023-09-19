@@ -13,12 +13,9 @@ namespace Blazorly.ClientApplication.SDK
 	{
 		public List<BaseBuiltInComponent> Controls { get; set; } = new List<BaseBuiltInComponent>();
 
-		public Type EntityType { get; set; }
-
-		public FormComponent(Type entityType)
+		public FormComponent()
 		{
             BlzControl = "BlzFormComponent";
-            EntityType = entityType;
         }
 
         public BaseBuiltInComponent this[string name]
@@ -37,9 +34,10 @@ namespace Blazorly.ClientApplication.SDK
 
         public T GetEntity<T>()
         {
-            var constructors = EntityType.GetConstructors();
+            var entityType = typeof(T);
+            var constructors = entityType.GetConstructors();
             var entityInstance = constructors[0].Invoke(null);
-            var properties = EntityType.GetProperties();
+            var properties = entityType.GetProperties();
             foreach ( var ctl in Controls)
             {
                 var property = properties.Where(x=>x.Name.ToUpperInvariant() == ctl.Prop.ToUpperInvariant()).FirstOrDefault();

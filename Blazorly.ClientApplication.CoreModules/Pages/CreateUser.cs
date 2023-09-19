@@ -31,6 +31,9 @@ namespace Blazorly.ClientApplication.CoreModules.Pages
 			var form = GetBlock<FormComponent>("CreateUserForm");
 			var user = form.GetEntity<SystemUser>();
 			await EntityContext.Create(user);
+			var ret = await UI.Confirm("All good", "Testing", "Yes", "No");
+			if(ret)
+				UI.Notification(PageNotificationSeverity.Success, "User created successfully", 4000);
 		}
 	}
 }

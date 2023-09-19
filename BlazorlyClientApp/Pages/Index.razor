@@ -1,4 +1,6 @@
 ﻿@page "/{*pageRoute}"
+@inject NotificationService NotificationService
+@inject DialogService DialogService
 
 @if (pageModel != null)
 {
@@ -19,9 +21,43 @@
         if (PageRoute != null)
         {
             pageModel = AppConfig.PageBuilder.GetPage(PageRoute);
-            if (pageModel != null)
+            if (pageModel != null){
                 pageModel.EntityContext = AppConfig.GetEntityContext("testuser");
+                pageModel.UI.__Notification__= NotifyEvent;
+                pageModel.UI.__Alert__ = Alert;
+                pageModel.UI.__Confirm__ = Confirm;
+            }
+
             loaded = true;
         }
+    }
+
+    private void NotifyEvent(PageNotificationSeverity severity, string detail, int duration = 4000)
+    {
+        var message = new NotificationMessage { Severity = (NotificationSeverity)severity, Detail = detail, Duration = duration };
+        NotificationService.Notify(message);
+    }
+
+    private async Task Alert(string message, string title = null, string buttonText = "Ok")
+    {
+        await DialogService.Alert(message, title, new AlertOptions()
+        {
+            OkButtonText = buttonText,
+            CloseDialogOnEsc = true,
+            ShowClose = true
+        });
+    }
+
+    private async Task<bool> Confirm(string message, string title = null, string buttonText = "Ok", string cancelButtonText = "Cancel")
+    {
+        var result = await DialogService.Confirm(message, title, new ConfirmOptions()
+            {
+                OkButtonText = buttonText,
+                CancelButtonText = cancelButtonText,
+                CloseDialogOnEsc = true,
+                ShowClose = true
+            });
+
+         return result.Value;
     }
 }

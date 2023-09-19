@@ -13,11 +13,14 @@ namespace Blazorly.ClientApplication.SDK
 		public PageResource(Type entityType) 
 		{
 			EntityType = entityType;
+			UI = new UI();
 		}
 
 		public Type EntityType { get; set; }
 
 		public IEntityContext EntityContext { get; set; }
+
+		public UI UI { get; set; }
 
         public List<PageAction> Actions { get; set; } = new List<PageAction>();
 
@@ -68,4 +71,28 @@ namespace Blazorly.ClientApplication.SDK
 
 		}
 	}
+
+	public class UI
+	{
+        public Action<PageNotificationSeverity, string, int> __Notification__ { get; set; }
+
+        public Func<string, string, string, Task> __Alert__ { get; set; }
+
+        public Func<string, string, string, string, Task<bool>> __Confirm__ { get; set; }
+
+		public void Notification(PageNotificationSeverity severity, string message, int duration = 4000)
+		{
+			__Notification__(severity, message, duration);
+		}
+
+		public async Task Alert(string message, string title = null, string buttonText = "Ok")
+		{
+			await __Alert__(message, title, buttonText);
+		}
+
+        public async Task<bool> Confirm(string message, string title = null, string OkButtonText = "Ok", string CancelButtonText = "Cancel")
+        {
+            return await __Confirm__(message, title, OkButtonText, CancelButtonText);
+        }
+    }
 }

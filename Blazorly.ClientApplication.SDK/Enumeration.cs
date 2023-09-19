@@ -86,4 +86,12 @@ namespace Blazorly.ClientApplication.SDK
 		Text,
 		Outlined
 	}
+
+    public enum PageNotificationSeverity
+    {
+        Error,
+        Info,
+        Success,
+        Warning
+    }
 }

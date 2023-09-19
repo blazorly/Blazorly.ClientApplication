@@ -3,6 +3,7 @@ using BlazorlyClientApp;
 using BlazorlyClientApp.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<ContextMenuService>();
+builder.Services.AddScoped<TooltipService>();
 
 AppConfig.DBConnectionString =  builder.Configuration.GetValue<string>("DBConnectionString");
 AppConfig.DBType = builder.Configuration.GetValue<string>("DBType");
