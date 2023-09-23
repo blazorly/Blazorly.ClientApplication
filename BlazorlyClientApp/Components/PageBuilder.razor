@@ -1,24 +1,14 @@
-﻿<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" class="col-12">
-    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Gap="10px" Wrap="FlexWrap.Wrap" class="col-6 col-md-12">
+﻿<div class="row col-md-12 col-12">
+    <div class="col-md-6 col-6">
+        <h1>@Model.Title</h1>
+    </div>
+    <div class="col-md-6 col-6 align-content-end">
         @foreach (var b in Model.Actions)
         {
-            if (b.Alignment == PageActionAlignment.Left)
-            {
-                <RadzenButton Click=@b.OnClick Text="@b.Label" Icon="@b.Icon" Variant=((Variant)b.Variant) ButtonStyle="@((ButtonStyle)b.Style)" />
-            }
+            <RadzenButton Click=@b.OnClick Text="@b.Label" Icon="@b.Icon" Variant=((Variant)b.Variant) ButtonStyle="@((ButtonStyle)b.Style)" />
         }
-    </RadzenStack>
-    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Reverse="true" Gap="10px" Wrap="FlexWrap.Wrap" class="col-6 col-md-12">
-        @foreach (var b in Model.Actions)
-        {
-            if (b.Alignment == PageActionAlignment.Right)
-            {
-                <RadzenButton Click=@b.OnClick Text="@b.Label" Icon="@b.Icon" Variant=((Variant)b.Variant) ButtonStyle="@((ButtonStyle)b.Style)" />
-            }
-        }
-    </RadzenStack>
-</RadzenStack>
-
+    </div>
+</div>
 <RadzenRow JustifyContent="JustifyContent.Normal" AlignItems="AlignItems.Normal" Gap="1rem" class="rz-mt-4">
     @foreach (var b in Model.Blocks)
     {

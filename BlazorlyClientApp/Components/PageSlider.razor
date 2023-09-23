@@ -5,8 +5,7 @@
     </RadzenRow>
     
     <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="0.5rem">
-        <RadzenButton Click="@((args) => dialogService.Close(false))" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Light" Text="@Options.CancelButtonText" Style="width: 120px" />
-        <RadzenButton Click="@((args) => dialogService.Close(true))" Variant="Variant.Flat" Text="@Options.OkButtonText" Style="width: 120px" />
+        <RadzenButton Click="@((args) => dialogService.CloseSide())" Variant="Variant.Flat" Text="@Options.OkButtonText" Style="width: 120px" />
     </RadzenStack>
 </RadzenStack>
 @code {
@@ -14,7 +13,7 @@
     public BaseResource Resource { get; set; }
 
     [Parameter]
-    public PageDialogOption Options { get; set; }
+    public PageSliderOption Options { get; set; }
 
     private Type InferType()
     {

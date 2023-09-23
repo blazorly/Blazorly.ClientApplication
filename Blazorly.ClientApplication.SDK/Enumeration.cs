@@ -94,4 +94,12 @@ namespace Blazorly.ClientApplication.SDK
         Success,
         Warning
     }
+
+    public enum PageDialogPosition
+    {
+        Right,
+        Left,
+        Top,
+        Bottom
+    }
 }

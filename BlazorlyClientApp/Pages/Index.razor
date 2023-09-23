@@ -26,6 +26,8 @@
                 pageModel.UI.__Notification__= NotifyEvent;
                 pageModel.UI.__Alert__ = Alert;
                 pageModel.UI.__Confirm__ = Confirm;
+                pageModel.UI.__Dialog__ = OpenDialog;
+                pageModel.UI.__Slider__ = SlideDialog;
             }
 
             loaded = true;
@@ -59,5 +61,18 @@
             });
 
          return result.Value;
+    }
+
+    public async Task<dynamic> OpenDialog(BaseResource resource, string title, PageDialogOption options)
+    {
+        return await DialogService.OpenAsync<PageDialog>(title,
+               new Dictionary<string, object>() { { "Resource", resource }, { "Options", options } },
+               new DialogOptions() { Width = options.Width, Height = options.Height, Resizable = options.Resizable, Draggable = options.Draggable });
+    }
+
+    public async Task<dynamic> SlideDialog(BaseResource resource, string title, PageSliderOption options)
+    {
+        return await DialogService.OpenSideAsync<PageSlider>(title, new Dictionary<string, object>() { { "Resource", resource }, { "Options", options } },
+                options: new SideDialogOptions { Width = options.Width, Position = (DialogPosition)options.Position });
     }
 }

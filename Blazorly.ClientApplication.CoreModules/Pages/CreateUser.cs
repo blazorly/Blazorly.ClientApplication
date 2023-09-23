@@ -16,13 +16,13 @@ namespace Blazorly.ClientApplication.CoreModules.Pages
 	{
         public CreateUser() : base(typeof(SystemUser))
         {
+			Title = "Create New User";
         }
 
         public override void Build()
 		{
             this.Add(new PageAction("Save", "Save", SaveClick));
 
-            this.Add(new PageBlock("Heading", new HtmlComponent("<h1>Create New User</h1>")));
 			this.Add(new PageBlock("CreateUserForm", new UserForm()));
 		}
 
@@ -31,9 +31,8 @@ namespace Blazorly.ClientApplication.CoreModules.Pages
 			var form = GetBlock<FormComponent>("CreateUserForm");
 			var user = form.GetEntity<SystemUser>();
 			await EntityContext.Create(user);
-			var ret = await UI.Confirm("All good", "Testing", "Yes", "No");
-			if(ret)
-				UI.Notification(PageNotificationSeverity.Success, "User created successfully", 4000);
+
+            var ret = await UI.Slider(new UserForm(), "Create User");
 		}
 	}
 }
