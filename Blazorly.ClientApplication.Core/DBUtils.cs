@@ -1,4 +1,4 @@
-﻿using Blazorly.ClientApplication.Core.DB;
+﻿using Blazorly.ClientApplication.SDK;
 using Blazorly.ClientApplication.SDK.Dto;
 using SqlKata;
 using System;

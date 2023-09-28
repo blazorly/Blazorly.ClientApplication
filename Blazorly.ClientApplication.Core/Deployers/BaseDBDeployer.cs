@@ -1,5 +1,4 @@
-﻿using Blazorly.ClientApplication.Core.DB;
-using Blazorly.ClientApplication.Core.DBFactory;
+﻿using Blazorly.ClientApplication.Core.DBFactory;
 using Blazorly.ClientApplication.SDK;
 using Blazorly.ClientApplication.SDK.Attributes;
 using SqlKata.Execution;
@@ -17,9 +16,9 @@ namespace Blazorly.ClientApplication.Core.Deployers
     public abstract class BaseDBDeployer
     {
         internal string[] ignoreFields = new string[] { "Id", "CreatedBy", "CreatedDate", "UpdatedBy", "UpdatedDate" };
-		internal QueryFactory factory = null;
-		internal BaseDBFactory db = null;
-		internal Schema schema = null;
+        internal QueryFactory factory;
+        internal BaseDBFactory db;
+		internal Schema schema;
         public BaseDBDeployer(BaseDBFactory db)
         {
             this.db = db;

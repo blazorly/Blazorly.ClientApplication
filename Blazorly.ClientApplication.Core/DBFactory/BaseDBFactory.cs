@@ -1,6 +1,6 @@
-﻿using Blazorly.ClientApplication.Core.DB;
-using Blazorly.ClientApplication.Core.Exceptions;
+﻿using Blazorly.ClientApplication.Core.Exceptions;
 using Blazorly.ClientApplication.Core.Properties;
+using Blazorly.ClientApplication.SDK;
 using Blazorly.ClientApplication.SDK.Dto;
 using Dapper;
 using Microsoft.Data.Sqlite;
@@ -101,7 +101,5 @@ namespace Blazorly.ClientApplication.Core.DBFactory
         }
 
         public abstract Schema GetSchema();
-
-        
     }
 }

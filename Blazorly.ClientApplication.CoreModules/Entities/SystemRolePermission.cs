@@ -28,5 +28,8 @@ namespace Blazorly.ClientApplication.CoreModules.Entities
 
 		[FieldDef]
 		public PermissionLevel Delete { get; set; }
+
+        [FieldDef]
+        public string RestrictMeta { get; set; }
 	}
 }

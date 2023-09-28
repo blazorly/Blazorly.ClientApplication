@@ -1,6 +1,6 @@
 ﻿using Blazorly.ClientApplication.Core;
-using Blazorly.ClientApplication.Core.DB;
 using Blazorly.ClientApplication.Core.DBFactory;
+using Blazorly.ClientApplication.SDK;
 using System.Net.NetworkInformation;
 
 namespace BlazorlyClientApp

@@ -1,5 +1,5 @@
-﻿using Blazorly.ClientApplication.Core.DB;
-using Blazorly.ClientApplication.Core.Properties;
+﻿using Blazorly.ClientApplication.Core.Properties;
+using Blazorly.ClientApplication.SDK;
 using Dapper;
 using System;
 using System.Collections.Generic;
