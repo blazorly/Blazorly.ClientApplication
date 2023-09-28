@@ -1,5 +1,6 @@
 ﻿using Blazorly.ClientApplication.Core;
 using Blazorly.ClientApplication.Core.DB;
+using Blazorly.ClientApplication.Core.DBFactory;
 using System.Net.NetworkInformation;
 
 namespace BlazorlyClientApp
@@ -16,11 +17,19 @@ namespace BlazorlyClientApp
 
         public static PageBuilder PageBuilder { get; set; } = new PageBuilder();
 
-        public static DBFactory Factory
+        public static BaseDBFactory Factory
         {
             get
             {
-                return new DBFactory(DBType, DBConnectionString, DBTimeout); 
+                switch (DBType)
+                {
+                    case "MSSQL":
+                        return new MSSQLDBFactory(DBConnectionString, DBTimeout);
+                    default:
+                        break;
+                }
+
+                throw new NotImplementedException();
             }
         }
 

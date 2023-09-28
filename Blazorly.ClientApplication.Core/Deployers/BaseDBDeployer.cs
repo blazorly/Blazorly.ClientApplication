@@ -1,4 +1,5 @@
 ﻿using Blazorly.ClientApplication.Core.DB;
+using Blazorly.ClientApplication.Core.DBFactory;
 using Blazorly.ClientApplication.SDK;
 using Blazorly.ClientApplication.SDK.Attributes;
 using SqlKata.Execution;
@@ -17,11 +18,11 @@ namespace Blazorly.ClientApplication.Core.Deployers
     {
         internal string[] ignoreFields = new string[] { "Id", "CreatedBy", "CreatedDate", "UpdatedBy", "UpdatedDate" };
 		internal QueryFactory factory = null;
-		internal DBFactory db = null;
+		internal BaseDBFactory db = null;
 		internal Schema schema = null;
-        public BaseDBDeployer(string connString)
+        public BaseDBDeployer(BaseDBFactory db)
         {
-			this.db = new DBFactory("MSSQL", connString);
+            this.db = db;
             factory = db.factory;
         }
 

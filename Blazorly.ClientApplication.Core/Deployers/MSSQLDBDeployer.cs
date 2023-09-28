@@ -1,4 +1,5 @@
 ﻿using Blazorly.ClientApplication.Core.DB;
+using Blazorly.ClientApplication.Core.DBFactory;
 using Blazorly.ClientApplication.SDK;
 using Blazorly.ClientApplication.SDK.Attributes;
 using SqlKata.Execution;
@@ -15,7 +16,7 @@ namespace Blazorly.ClientApplication.Core.Deployers
 {
     public class MSSQLDBDeployer : BaseDBDeployer
 	{
-        public MSSQLDBDeployer(string connString) : base(connString)
+        public MSSQLDBDeployer(string connString) : base(new MSSQLDBFactory(connString, 300))
         {
 
         }

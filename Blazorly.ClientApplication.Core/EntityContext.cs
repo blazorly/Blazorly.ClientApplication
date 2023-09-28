@@ -1,4 +1,5 @@
 ﻿using Blazorly.ClientApplication.Core.DB;
+using Blazorly.ClientApplication.Core.DBFactory;
 using Blazorly.ClientApplication.SDK;
 using Blazorly.ClientApplication.SDK.Attributes;
 using Blazorly.ClientApplication.SDK.Dto;
@@ -17,11 +18,11 @@ namespace Blazorly.ClientApplication.Core
 {
     public class EntityContext : IEntityContext
     {
-        private DBFactory factory;
+        private BaseDBFactory factory;
 
         public string CurrentUserID { get; set; }
 
-        public EntityContext(DBFactory dBFactory) 
+        public EntityContext(BaseDBFactory dBFactory) 
         {
             factory = dBFactory;
         } 
