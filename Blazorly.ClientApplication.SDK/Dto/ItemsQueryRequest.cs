@@ -10,9 +10,6 @@ namespace Blazorly.ClientApplication.SDK.Dto
 {
     public class ItemsQueryRequest
     {
-        [JsonPropertyName("entity")]
-        public string? Entity { get; set; }
-
         [JsonPropertyName("fields")]
         public JsonDocument? Fields { get; set; }
 
@@ -21,5 +18,8 @@ namespace Blazorly.ClientApplication.SDK.Dto
 
         [JsonPropertyName("sort")]
         public JsonDocument? Sort { get; set; }
+
+        [JsonIgnore]
+        public Dictionary<string, object> MetaQuery { get; set; }
     }
 }

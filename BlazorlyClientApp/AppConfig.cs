@@ -1,6 +1,9 @@
 ﻿using Blazorly.ClientApplication.Core;
 using Blazorly.ClientApplication.Core.DBFactory;
+using Blazorly.ClientApplication.CoreModules.Entities;
+using Blazorly.ClientApplication.CoreModules.Helpers;
 using Blazorly.ClientApplication.SDK;
+using Blazorly.ClientApplication.SDK.Interfaces;
 using System.Net.NetworkInformation;
 
 namespace BlazorlyClientApp
@@ -48,6 +51,20 @@ namespace BlazorlyClientApp
             var context = new EntityContext(Factory);
             context.CurrentUserID = currentUserId;
             return context;
+        }
+
+        public static IAccessChecker GetAccessChecker(string currentUserId)
+        {
+            var context = GetEntityContext(currentUserId);
+            //context.Query<SystemRolePermission>(new Blazorly.ClientApplication.SDK.Dto.ItemsQueryRequest()
+            //{
+            //    Filter = new 
+            //    {
+
+            //    }
+            //});
+
+            return new DefaultAccessChecker(Factory, null);
         }
     }
 }

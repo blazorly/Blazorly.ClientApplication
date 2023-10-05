@@ -93,6 +93,14 @@ namespace Blazorly.ClientApplication.Core
             }
         }
 
+        public static void ParseQuery(string collection, Dictionary<string, object> element, Query query, string clause_cond = "_and")
+        {
+            foreach (var prop in element)
+            {
+                SetValue(query, $"{collection}.{prop.Key}", "=", prop.Value, clause_cond);
+            }
+        }
+
         private static void ParseInnerQuery(JsonElement element, Query query, string col, string clause_cond = "_and")
         {
             foreach (var prop in element.EnumerateObject())
@@ -178,6 +186,30 @@ namespace Blazorly.ClientApplication.Core
                 else if (item.ValueKind == JsonValueKind.Null)
                     values.Add(null);
             }
+
+            switch (op)
+            {
+                case "_in":
+                    query = clause_cond == "_or" ? query.OrWhereIn(col, values) : query.WhereIn(col, values);
+                    break;
+                case "_nin":
+                    query = clause_cond == "_or" ? query.OrWhereNotIn(col, values) : query.WhereNotIn(col, values);
+                    break;
+                case "_between":
+                    if (values.Count == 2)
+                        query = clause_cond == "_or" ? query.OrWhereBetween(col, values[0], values[1]) : query.WhereBetween(col, values[0], values[1]);
+                    break;
+                case "_nbetween":
+                    if (values.Count == 2)
+                        query = clause_cond == "_or" ? query.OrWhereNotBetween(col, values[0], values[1]) : query.WhereNotBetween(col, values[0], values[1]);
+                    break;
+            }
+        }
+
+        private static void SetValue(Query query, string col, string op, object value, string clause_cond = "_and")
+        {
+            List<object> values = new List<object>();
+            values.Add(value);
 
             switch (op)
             {

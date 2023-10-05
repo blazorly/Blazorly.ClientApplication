@@ -18,12 +18,14 @@ namespace Blazorly.ClientApplication.Core
     public class EntityContext : IEntityContext
     {
         private BaseDBFactory factory;
+        public IAccessChecker AccessChecker { get; set; }
 
         public string CurrentUserID { get; set; }
 
-        public EntityContext(BaseDBFactory dBFactory) 
+        public EntityContext(BaseDBFactory dBFactory, IAccessChecker accessChecker = null) 
         {
             factory = dBFactory;
+            this.AccessChecker = accessChecker;
         } 
         
         public async Task Create<T>(T entity) where T : BaseEntity
@@ -37,18 +39,27 @@ namespace Blazorly.ClientApplication.Core
 
             var item = ConvertExpando(entity);
             var collection = GetEntityName(typeof(T));
+            if (!AccessChecker.HaveInsertAccess(collection, item))
+                throw new UnauthorizedAccessException("Access denied to perform this operation");
+
             await factory.Insert(collection, item);
         }
 
         public async Task Delete<T>(string id) where T : BaseEntity
         {
             var collection = GetEntityName(typeof(T));
+            if (!AccessChecker.HaveDeleteAccess(collection, id))
+                throw new UnauthorizedAccessException("Access denied to perform this operation");
+
             await factory.Delete(collection, "Id", id);
         }
 
         public async Task<T> Get<T>(string id) where T : BaseEntity
         {
             var collection = GetEntityName(typeof(T));
+            if (!AccessChecker.HaveDeleteAccess(collection, id))
+                throw new UnauthorizedAccessException("Access denied to perform this operation");
+
             var data = await factory.Read(collection, "Id", id);
             return (T)data;
         }
@@ -56,6 +67,7 @@ namespace Blazorly.ClientApplication.Core
         public async Task<ItemsResponse> Query<T>(ItemsQueryRequest query, int page = 1, int count = 100)
         {
             var collection = GetEntityName(typeof(T));
+            query.MetaQuery = AccessChecker.GetMetaQuery(collection);
             var queryResult = await factory.Query(collection, query, page, count);
 
             return new ItemsResponse()
@@ -78,6 +90,9 @@ namespace Blazorly.ClientApplication.Core
 
             var item = ConvertExpando(entity);
             var collection = GetEntityName(typeof(T));
+            if (!AccessChecker.HaveUpdateAccess(collection, id))
+                throw new UnauthorizedAccessException("Access denied to perform this operation");
+
             await factory.Update(collection, "Id", id, item);
         }
 

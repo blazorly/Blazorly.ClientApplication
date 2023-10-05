@@ -2,7 +2,9 @@
 using Blazorly.ClientApplication.Core.Properties;
 using Blazorly.ClientApplication.SDK;
 using Blazorly.ClientApplication.SDK.Dto;
+using Blazorly.ClientApplication.SDK.Interfaces;
 using Dapper;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.Data.Sqlite;
 using MySql.Data.MySqlClient;
 using Npgsql;
@@ -13,7 +15,7 @@ using System.Dynamic;
 
 namespace Blazorly.ClientApplication.Core.DBFactory
 {
-    public abstract class BaseDBFactory
+    public abstract class BaseDBFactory : IDBFactoryExtension
     {
         public QueryFactory factory = null;
 
@@ -87,19 +89,37 @@ namespace Blazorly.ClientApplication.Core.DBFactory
             DBUtils.ParseSelectFields(schema, collection, queryRequest, query);
             if (queryRequest.Filter != null)
                 DBUtils.ParseQuery("t0", queryRequest.Filter.RootElement, query);
+
+            if(queryRequest.MetaQuery != null)
+                DBUtils.ParseQuery("t0", queryRequest.MetaQuery, query);
+
             DBUtils.ParseSort(queryRequest.Sort, query);
 
             return await query.PaginateAsync(page.Value, count.Value);
         }
 
-        public async Task CheckRecordAccess(string collection, string key, object value)
+        public abstract Schema GetSchema();
+
+        public async Task<bool> CheckRecordAccess(string collection, Dictionary<string, object> filters)
         {
-            var count = await factory.Query(collection).Where(key, value).CountAsync<int>(new string[] { "*" });
+            if (filters == null)
+                return false;
+
+            if (filters.Count == 0)
+                return false;
+
+            var query = factory.Query(collection);
+            foreach (var item in filters)
+            {
+                query = query.Where(item.Key, item.Value);
+            }
+
+            var count = await query.CountAsync<int>(new string[] { "*" });
 
             if (count == 0)
-                throw new RecordNotFoundException(collection);
-        }
+                return false;
 
-        public abstract Schema GetSchema();
+            return true;
+        }
     }
 }
