@@ -1,19 +1,20 @@
-﻿@inject Radzen.DialogService dialogService
-<RadzenStack Gap="1rem">
-    <RadzenRow JustifyContent="JustifyContent.Normal" AlignItems="AlignItems.Normal" Gap="1rem" class="rz-mt-4">
+﻿<div class="row col-12">
+    <div class="col-12">
         <DynamicComponent Type="@InferType()" Parameters="@GetDynamicParams()"></DynamicComponent>
-    </RadzenRow>
-    
-    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="0.5rem">
-        <RadzenButton Click="@((args) => dialogService.CloseSide())" Variant="Variant.Flat" Text="@Options.OkButtonText" Style="width: 120px" />
-    </RadzenStack>
-</RadzenStack>
+    </div>
+    <div>
+        <MudButton OnClick="Cancel" Variant="Variant.Filled" ButtonStyle="ButtonStyle.Light" Text="@Options.CancelButtonText" Style="width: 120px" />
+        <MudButton OnClick="Ok" Variant="Variant.Filled" Text="@Options.OkButtonText" Style="width: 120px" />
+    </div>
+</div>
 @code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
     [Parameter]
     public BaseResource Resource { get; set; }
 
     [Parameter]
-    public PageSliderOption Options { get; set; }
+    public PageDialogOption Options { get; set; }
 
     private Type InferType()
     {
@@ -26,5 +27,15 @@
         {
             { "Model", Resource }
         };
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void Ok()
+    {
+        MudDialog.Close(DialogResult.Ok(true));
     }
 }

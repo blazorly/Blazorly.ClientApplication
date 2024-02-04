@@ -5,11 +5,11 @@
     <div class="col-md-6 col-6 align-content-end">
         @foreach (var b in Model.Actions)
         {
-            <RadzenButton Click=@b.OnClick Text="@b.Label" Icon="@b.Icon" Variant=((Variant)b.Variant) ButtonStyle="@((ButtonStyle)b.Style)" />
+            <MudButton Variant="(Variant)b.Variant" Color="@((Color)b.Style)" OnClick=b.OnClick>@b.Label</MudButton>
         }
     </div>
 </div>
-<RadzenRow JustifyContent="JustifyContent.Normal" AlignItems="AlignItems.Normal" Gap="1rem" class="rz-mt-4">
+<div class="row col-12">
     @foreach (var b in Model.Blocks)
     {
         var type = InferType(b.Resource.ToString());
@@ -18,7 +18,8 @@
 
         <DynamicComponent Type="@type" Parameters="@GetDynamicParams(b)"></DynamicComponent>
     }
-</RadzenRow>
+</div>
+
 
 @code {
     [Parameter]

@@ -1,7 +1,7 @@
-﻿<RadzenColumn SizeLG="@Model.Span" SizeXS="12">
-    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">@Model.Label</RadzenText>
-    <RadzenTextBox @bind-Value=@Value class="w-100" />
-</RadzenColumn>
+﻿
+<div class="col-md-@Model.Span">
+    <MudTextField T="string" Label="@Model.Label" Required="@Model.Required" RequiredError="@(Model.Label + "is required!")" />
+</div>
 
 @code {
     [Parameter]

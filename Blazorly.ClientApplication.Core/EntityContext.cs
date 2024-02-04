@@ -57,7 +57,7 @@ namespace Blazorly.ClientApplication.Core
         public async Task<T> Get<T>(string id) where T : BaseEntity
         {
             var collection = GetEntityName(typeof(T));
-            if (!AccessChecker.HaveDeleteAccess(collection, id))
+            if (!AccessChecker.HaveReadAccess(collection, id))
                 throw new UnauthorizedAccessException("Access denied to perform this operation");
 
             var data = await factory.Read(collection, "Id", id);

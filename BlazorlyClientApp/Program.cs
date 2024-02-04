@@ -3,19 +3,16 @@ using BlazorlyClientApp;
 using BlazorlyClientApp.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Radzen;
+using MudBlazor;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddScoped<NotificationService>();
+builder.Services.AddMudServices();
 builder.Services.AddScoped<DialogService>();
-builder.Services.AddScoped<ContextMenuService>();
-builder.Services.AddScoped<TooltipService>();
-
 AppConfig.DBConnectionString =  builder.Configuration.GetValue<string>("DBConnectionString");
 AppConfig.DBType = builder.Configuration.GetValue<string>("DBType");
 AppConfig.DBTimeout = builder.Configuration.GetValue<int>("DBTimeout");

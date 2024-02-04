@@ -1,6 +1,7 @@
 ﻿using Blazorly.ClientApplication.SDK.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,30 +70,51 @@ namespace Blazorly.ClientApplication.SDK
 
 	public enum PageActionStyle
 	{
-		Primary,
-		Secondary,
-		Light,
-		Dark,
-		Success,
-		Danger,
-		Warning,
-		Info
-	}
+        [Description("default")]
+        Default,
+        [Description("primary")]
+        Primary,
+        [Description("secondary")]
+        Secondary,
+        [Description("tertiary")]
+        Tertiary,
+        [Description("info")]
+        Info,
+        [Description("success")]
+        Success,
+        [Description("warning")]
+        Warning,
+        [Description("error")]
+        Error,
+        [Description("dark")]
+        Dark,
+        [Description("transparent")]
+        Transparent,
+        [Description("inherit")]
+        Inherit,
+        [Description("surface")]
+        Surface
+    }
 
 	public enum PageActionVariant
 	{
 		Filled,
-		Flat,
 		Text,
 		Outlined
 	}
 
     public enum PageNotificationSeverity
     {
-        Error,
+        [Description("normal")]
+        Normal,
+        [Description("info")]
         Info,
+        [Description("success")]
         Success,
-        Warning
+        [Description("warning")]
+        Warning,
+        [Description("error")]
+        Error
     }
 
     public enum PageDialogPosition

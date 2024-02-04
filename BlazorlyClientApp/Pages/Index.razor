@@ -1,5 +1,5 @@
 ﻿@page "/{*pageRoute}"
-@inject NotificationService NotificationService
+@inject ISnackbar Snackbar
 @inject DialogService DialogService
 
 @if (pageModel != null)
@@ -36,43 +36,35 @@
 
     private void NotifyEvent(PageNotificationSeverity severity, string detail, int duration = 4000)
     {
-        var message = new NotificationMessage { Severity = (NotificationSeverity)severity, Detail = detail, Duration = duration };
-        NotificationService.Notify(message);
+        Snackbar.Add(detail, (Severity)severity);
     }
 
     private async Task Alert(string message, string title = null, string buttonText = "Ok")
     {
-        await DialogService.Alert(message, title, new AlertOptions()
-        {
-            OkButtonText = buttonText,
-            CloseDialogOnEsc = true,
-            ShowClose = true
-        });
+        await DialogService.ShowMessageBox(message, title, buttonText);
     }
 
     private async Task<bool> Confirm(string message, string title = null, string buttonText = "Ok", string cancelButtonText = "Cancel")
     {
-        var result = await DialogService.Confirm(message, title, new ConfirmOptions()
-            {
-                OkButtonText = buttonText,
-                CancelButtonText = cancelButtonText,
-                CloseDialogOnEsc = true,
-                ShowClose = true
-            });
+        var result = await DialogService.ShowMessageBox(message, title, buttonText, cancelText: cancelButtonText);
 
-         return result.Value;
+        return result.Value;
     }
 
     public async Task<dynamic> OpenDialog(BaseResource resource, string title, PageDialogOption options)
     {
-        return await DialogService.OpenAsync<PageDialog>(title,
-               new Dictionary<string, object>() { { "Resource", resource }, { "Options", options } },
-               new DialogOptions() { Width = options.Width, Height = options.Height, Resizable = options.Resizable, Draggable = options.Draggable });
+        // return await DialogService.Show<PageDialog>(title,
+        //        new Dictionary<string, object>() { { "Resource", resource }, { "Options", options } },
+        //        new DialogOptions() { MaxWidth = MaxWidth.Medium });
+
+        return null;
     }
 
     public async Task<dynamic> SlideDialog(BaseResource resource, string title, PageSliderOption options)
     {
-        return await DialogService.OpenSideAsync<PageSlider>(title, new Dictionary<string, object>() { { "Resource", resource }, { "Options", options } },
-                options: new SideDialogOptions { Width = options.Width, Position = (DialogPosition)options.Position });
+        // return await DialogService.Show<PageSlider>(title, new Dictionary<string, object>() { { "Resource", resource }, { "Options", options } },
+        //         options: new SideDialogOptions { Width = options.Width, Position = (DialogPosition)options.Position });
+
+        return null;
     }
 }
